@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt');
 const path = require('path');
 const connection = require('../database/db');
 const User = require('../models/user');
@@ -9,7 +10,9 @@ async function createUser(req, res) {
     if (userExists) {
       return res.status(400).send('Email ID already exists');
     }
-    const newUser = await User.create({ name, email, password });
+    const saltRounds = 10; // Number of salt rounds for bcrypt
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    const newUser = await User.create({ name, email, password: hashedPassword });
     res.redirect('/signup.html');
   } catch (error) {
     console.error('Error creating user:', error);
