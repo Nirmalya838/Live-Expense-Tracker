@@ -18,7 +18,8 @@ async function loginUser(req, res) {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
 
-    return res.status(200).json({ message: 'Login successful' });
+    // Redirect the user to the expense.html page
+    res.redirect('/expense');
   } catch (error) {
     console.error('Error during login:', error);
     res.status(500).send('Internal Server Error');

@@ -44,6 +44,13 @@ input[type="password"] {
   border-radius: 4px;
 }
 
+.opt  {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
 input[type="submit"] {
   background-color: #a30101;
   color: #fff;
@@ -68,6 +75,10 @@ input[type="submit"]:hover {
   overflow-y: auto;
 }
 
+#expense-list li {
+  margin-bottom: 10px;
+}
+
 .expense-item {
   display: flex;
   justify-content: space-between;
@@ -78,7 +89,7 @@ input[type="submit"]:hover {
   margin-right: 10px;
 }
 
-.expense-item .delete-btn {
+ .btn {
   background-color: #f44336;
   color: #fff;
   border: none;
@@ -87,7 +98,7 @@ input[type="submit"]:hover {
   padding: 5px;
 }
 
-.expense-item .delete-btn:hover {
+ .btn:hover {
   background-color: #d32f2f;
 }
 

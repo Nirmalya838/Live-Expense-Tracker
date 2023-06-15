@@ -13,7 +13,7 @@ async function createUser(req, res) {
     const saltRounds = 10; // Number of salt rounds for bcrypt
     const hashedPassword = await bcrypt.hash(password, saltRounds);
     const newUser = await User.create({ name, email, password: hashedPassword });
-    res.redirect('/signup.html');
+    res.redirect('/');
   } catch (error) {
     console.error('Error creating user:', error);
     res.status(500).send('Internal Server Error');
