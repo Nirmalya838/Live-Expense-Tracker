@@ -1,15 +1,16 @@
 const path = require('path');
 const connection = require('../database/db');
-const expense = require('../models/expense');
+const Expense = require('../models/expense');
 
 exports.addExpense = async (req, res) => {
   try {
     const { amount, type, date } = req.body;
+    const userId = req.query.userId;
 
-    const newExpense = await expense.create({ amount, type, date });
+    const newExpense = await Expense.create({ amount, type, date, userId });
 
     if (newExpense) {
-      res.redirect('/expense');
+      res.redirect(`/expense?userId=${userId}`);
     } else {
       res.status(500).json({ message: 'Error adding expense' });
     }

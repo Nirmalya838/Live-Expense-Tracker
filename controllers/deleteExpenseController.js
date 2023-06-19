@@ -1,19 +1,27 @@
 const Expense = require('../models/expense');
 
 exports.deleteExpense = async (req, res) => {
-  const expenseId = req.params.id;
-
   try {
-    const affectedRows = await Expense.destroy({ where: { id: expenseId } });
+    const expenseId = req.params.id;
+    const userId = Number(req.query.userId);
 
-    if (affectedRows === 0) {
-      return res.status(404).json({ error: 'Expense not found' });
+    console.log('Expense ID:', expenseId);
+    console.log('User ID:', userId);
+
+    const foundExpense = await Expense.findByPk(expenseId);
+
+    if (!foundExpense) {
+      return res.status(404).json({ message: 'Expense not found' });
+    }
+    if (foundExpense.userId !== userId) {
+      return res.status(401).json({ message: 'Unauthorized: You are not allowed to delete this expense' });
     }
 
-    console.log(`Expense with ID ${expenseId} deleted successfully`);
-    return res.json({ message: 'Expense deleted successfully' });
+    await foundExpense.destroy();
+
+    res.status(200).json({ message: 'Expense deleted successfully' });
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ error: 'An error occurred while deleting the expense' });
+    console.error('Error deleting expense:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 };

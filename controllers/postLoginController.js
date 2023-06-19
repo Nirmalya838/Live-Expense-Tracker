@@ -9,7 +9,7 @@ async function loginUser(req, res) {
     const user = await User.findOne({ where: { email: email } });
 
     if (!user) {
-      return res.status(401).json({ message: 'User not Found!' });
+      return res.status(401).json({ message: 'User not found!' });
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
@@ -18,8 +18,8 @@ async function loginUser(req, res) {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
 
-    // Redirect the user to the expense.html page
-    res.redirect('/expense');
+    const userId = user.id;
+    res.redirect(`/expense?userId=${userId}`);
   } catch (error) {
     console.error('Error during login:', error);
     res.status(500).send('Internal Server Error');
@@ -27,5 +27,5 @@ async function loginUser(req, res) {
 }
 
 module.exports = {
-  loginUser,
+  loginUser,  
 };

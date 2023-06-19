@@ -26,7 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
           <strong>Amount:</strong> Rs. ${expense.amount} |
           <strong>Type:</strong> ${expense.type} |
           <strong>Date:</strong> ${date} |
-          <button class="btn btn-edit" onclick="editExpense('${expense.id}')">Edit</button> |
           <button class="btn btn-delete" data-expense-id="${expense.id}">Delete</button>
         `;
 
@@ -48,7 +47,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
   function deleteExpense(expenseId) {
-    axios.delete(`/expense/delete/${expenseId}`)
+    const userId = new URLSearchParams(window.location.search).get('userId');
+    axios.delete(`/expense/delete/${expenseId}?userId=${userId}`)
       .then(response => {
         // Remove the deleted expense from the UI
         console.log(response.data);
@@ -62,3 +62,4 @@ document.addEventListener('DOMContentLoaded', () => {
       });
   }
 });
+
