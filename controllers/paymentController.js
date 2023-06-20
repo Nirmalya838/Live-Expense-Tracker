@@ -2,6 +2,7 @@ const Razorpay = require('razorpay');
 const axios = require('axios');
 const crypto = require('crypto');
 const Order  = require('../models/order');
+const User = require('../models/user');
 
 // Initialize Razorpay client with your API keys
 const razorpay = new Razorpay({
@@ -66,6 +67,11 @@ exports.verifyPayment = async (req, res) => {
       status: 'captured',
       userId: userId
     });
+
+     // Update the 'premium' column for the user
+     const user = await User.findByPk(userId);
+     user.premium = true;
+     await user.save();
     // Payment signature is valid
     // Handle further processing or validation here
 

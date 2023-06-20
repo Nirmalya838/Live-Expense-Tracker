@@ -61,6 +61,27 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('Error deleting expense:', error);
       });
   }
+
+  const userId = new URLSearchParams(window.location.search).get('userId');
+
+  // API request to check if the user is a premium user
+  axios.get(`/user/${userId}/premium`)
+    .then(response => {
+      const isPremium = response.data.isPremium;
+
+      // Disable the "Buy Premium" button if the user is already a premium user
+      const rzpButton = document.getElementById('rzp');
+      if (isPremium) {
+        rzpButton.textContent = 'Premium User';
+        rzpButton.disabled = true;
+        rzpButton.style.backgroundColor = '#ccc';
+        rzpButton.style.color = "black";
+        rzpButton.style.pointerEvents = 'none';
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching user premium status:', error);
+    });
 });
 
   const rzpButton = document.getElementById('rzp');
@@ -98,6 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Transaction successful
                 alert('Transaction successful!');
                 // Update the UI or perform other actions upon success
+                window.location.reload();
               } else {
                 // Transaction failed
                 alert('TRANSACTION FAILED');
