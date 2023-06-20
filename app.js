@@ -1,6 +1,10 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
+const User = require('./models/user');
+const Order = require('./models/order');
+const Expense = require('./models/expense');
+const sequelize = require('./database/db');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -13,6 +17,8 @@ const getExpenseRoute = require('./routes/getExpenseRoute');
 const postExpenseRoute = require('./routes/postExpenseRoute');
 const getExpenseDetailsRoute = require('./routes/getExpenseDetailsRoute');
 const deleteExpenseRoute = require('./routes/deleteExpenseRoute');
+const paymentRoute = require('./routes/paymentRoute');
+
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -28,6 +34,19 @@ app.use(getExpenseRoute);
 app.use(postExpenseRoute);
 app.use(getExpenseDetailsRoute);
 app.use(deleteExpenseRoute);
+app.use(paymentRoute);
+
+User.hasMany(Expense);
+Expense.belongsTo(User);
+
+User.hasMany(Order);
+Order.belongsTo(User);
+
+sequelize.sync()
+.then(()=>{
+    app.listen(port, () => console.log(`Listening on port ${port}`));
+})
+.catch(err => console.log(err))
 
 
-app.listen(port, () => console.log(`Listening on port ${port}`));
+

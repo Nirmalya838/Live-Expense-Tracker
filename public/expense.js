@@ -63,3 +63,63 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+  const rzpButton = document.getElementById('rzp');
+  rzpButton.addEventListener('click', function() {
+    const amount = 99; // Set the amount to 99 rupees
+    const urlParams = new URLSearchParams(window.location.search);
+    const userId = urlParams.get('userId');
+
+    // Create an order on the server-side
+    axios.post('/create-order', { amount: amount, userId: userId })
+      .then(function(response) {
+        const orderId = response.data.orderId;
+
+        // Redirect the user to Razorpay payment page
+        const options = {
+          key: 'rzp_test_qaWBwBe2NgsxrT', // Replace with your actual API key
+          amount: amount * 100, // Razorpay amount should be in paise (multiply by 100 for rupees)
+          currency: 'INR', // Replace with your desired currency code
+          name: 'Premium Subscription', // Replace with your product or service name
+          description: 'Upgrade to premium', // Replace with your product or service description
+          order_id: orderId, // Pass the order ID received from the server
+          handler: function(response) {
+            const paymentId = response.razorpay_payment_id;
+            const signature = response.razorpay_signature;
+
+            // Send the payment details to the server for verification
+            axios.post('/verify-payment', {
+              orderId: orderId,
+              paymentId: paymentId,
+              signature: signature,
+              userId: userId
+            })
+            .then(function(response) {
+              if (response.data.success) {
+                // Transaction successful
+                alert('Transaction successful!');
+                // Update the UI or perform other actions upon success
+              } else {
+                // Transaction failed
+                alert('TRANSACTION FAILED');
+                // Update the UI or perform other actions upon failure
+              }
+            })
+            .catch(function(error) {
+              console.error('Payment verification error:', error);
+            });
+          },
+          prefill: {
+            name: 'John Doe', // Replace with the user's name
+            email: 'john@example.com', // Replace with the user's email
+            contact: '9876543210' // Replace with the user's contact number
+          }
+        };
+
+        const rzpInstance = new Razorpay(options);
+        rzpInstance.open();
+      })
+      .catch(function(error) {
+        console.error('Order creation error:', error);
+      });
+  });
+
