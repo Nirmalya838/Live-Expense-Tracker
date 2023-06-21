@@ -229,3 +229,12 @@ h1 {
   margin-bottom: 20px;
   color: #333;
 }
+
+#fgtForm {
+  max-width: 600px;
+  margin: 0 auto;
+  margin-top: 30px;
+  padding: 20px 40px;
+  background-color: #98b0e5;
+  border-radius: 10px;
+}

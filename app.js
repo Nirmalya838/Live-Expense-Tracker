@@ -21,6 +21,7 @@ const paymentRoute = require('./routes/paymentRoute');
 const premiumRoute = require('./routes/premiumRoute');
 const leaderRoute = require('./routes/getLeaderRoute');
 const getLeaderDetailsRoute = require('./routes/getLeaderDetailsRoute');
+const forgotRoute = require('./routes/forgotRoute');
 
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -41,6 +42,7 @@ app.use(paymentRoute);
 app.use(premiumRoute);
 app.use(leaderRoute);
 app.use(getLeaderDetailsRoute);
+app.use(forgotRoute);
 
 User.hasMany(Expense);
 Expense.belongsTo(User);
