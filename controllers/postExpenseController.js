@@ -1,6 +1,7 @@
 const path = require('path');
 const connection = require('../database/db');
 const Expense = require('../models/expense');
+const User = require('../models/user');
 
 exports.addExpense = async (req, res) => {
   try {
@@ -10,6 +11,10 @@ exports.addExpense = async (req, res) => {
     const newExpense = await Expense.create({ amount, type, date, userId });
 
     if (newExpense) {
+      const user = await User.findByPk(userId);
+      user.total = (parseInt(user.total) || 0) + parseInt(amount);
+      await user.save();
+
       res.redirect(`/expense?userId=${userId}`);
     } else {
       res.status(500).json({ message: 'Error adding expense' });
