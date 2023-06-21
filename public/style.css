@@ -133,6 +133,24 @@ input[type="submit"]:hover {
   background-color: #599347;
 }
 
+#ldb {
+  background-color: #a30c0a;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
+  margin-left: 30px;
+  padding: 15px;
+  border-radius: 4px;
+  border: 1px solid #ccc;  
+  font-size: larger;
+  font-family: Georgia, 'Times New Roman', Times, serif;  
+}
+
+#ldb:hover {
+  background-color: #599347;
+}
+
 /* Styles for Login Page */
 #container.login-container {
   background-color: #cfcfe5;
@@ -149,4 +167,46 @@ h1.login-heading {
 
 h1.signup-heading {
   color: #038f03d2;
+}
+
+/* Styling for the leaderboard container */
+#leaderboard-container {
+  width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f2f2f2;
+  border-radius: 5px;
+}
+
+/* Styling for leaderboard list items */
+#leader-list li {
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  border-radius: 3px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for alternating list items */
+#leader-list li:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Styling for leader name */
+#leader-list li strong {
+  font-weight: bold;
+  color: #333;
+}
+
+/* Styling for total expense */
+#leader-list li span {
+  font-weight: bold;
+  color: #ff4500;
+}
+
+/* Styling for the page heading */
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
 }

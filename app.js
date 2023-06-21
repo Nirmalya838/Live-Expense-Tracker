@@ -19,6 +19,8 @@ const getExpenseDetailsRoute = require('./routes/getExpenseDetailsRoute');
 const deleteExpenseRoute = require('./routes/deleteExpenseRoute');
 const paymentRoute = require('./routes/paymentRoute');
 const premiumRoute = require('./routes/premiumRoute');
+const leaderRoute = require('./routes/getLeaderRoute');
+const getLeaderDetailsRoute = require('./routes/getLeaderDetailsRoute');
 
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -37,6 +39,8 @@ app.use(getExpenseDetailsRoute);
 app.use(deleteExpenseRoute);
 app.use(paymentRoute);
 app.use(premiumRoute);
+app.use(leaderRoute);
+app.use(getLeaderDetailsRoute);
 
 User.hasMany(Expense);
 Expense.belongsTo(User);

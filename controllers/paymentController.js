@@ -6,8 +6,8 @@ const User = require('../models/user');
 
 // Initialize Razorpay client with your API keys
 const razorpay = new Razorpay({
-  key_id: 'rzp_test_qaWBwBe2NgsxrT',
-  key_secret: 'JRw5elCVDTtGQnALtJtnHVCb',
+  key_id: 'rzp_test_Gm7xr3DBOIyVKR',
+  key_secret: '6G8vRhwvRPeEh1gcnPRoB6XL',
 });
 
 // Controller method for creating a Razorpay order
@@ -36,7 +36,7 @@ exports.verifyPayment = async (req, res) => {
   const { orderId, paymentId, signature, userId } = req.body;
 
   try {
-    const secretKey = 'JRw5elCVDTtGQnALtJtnHVCb'; // Replace with your actual Razorpay secret key
+    const secretKey = '6G8vRhwvRPeEh1gcnPRoB6XL'; // Replace with your actual Razorpay secret key
 
     // Concatenate the order ID and payment ID
     const text = orderId + '|' + paymentId;
