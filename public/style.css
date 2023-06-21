@@ -151,6 +151,25 @@ input[type="submit"]:hover {
   background-color: #599347;
 }
 
+#log {
+position: fixed;
+top: 10px;
+right: 10px;
+background-color: #a30c0a;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;  
+  font-size: larger;
+  font-family: Georgia, 'Times New Roman', Times, serif;  
+}
+
+#log:hover {
+  background-color: #599347;
+}
+
 /* Styles for Login Page */
 #container.login-container {
   background-color: #cfcfe5;

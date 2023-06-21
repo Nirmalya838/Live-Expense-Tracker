@@ -10,8 +10,15 @@
     <div>
         <h2>LeaderBoard</h2>
         <ul id="leader-list"></ul>
+        <a href="#" id="back-link">Go Back</a> 
       </div>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.6/axios.min.js"></script>
       <script src="leaderboard.js"></script>
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const backLink = document.getElementById('back-link');
+            backLink.href = document.referrer;
+        });
+    </script>
 </body>
 </html>
