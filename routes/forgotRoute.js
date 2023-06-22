@@ -1,17 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const axios = require('axios');
+const forgotController = require('../controllers/forgotController')
 
-router.post('/password/forgotpassword', async (req, res) => {
-  const { email } = req.body;
-
-  // Perform necessary logic here, such as sending a password reset email
-  // You can use libraries like nodemailer or any other email service provider
-
-  // For demonstration purposes, we'll simulate a delay of 2 seconds before sending the response
-  await new Promise((resolve) => setTimeout(resolve, 2000));
-
-  res.json({ message: 'Password reset email sent successfully' });
-});
+router.post('/password/forgotpassword', forgotController.sendMail)
 
 module.exports = router;
