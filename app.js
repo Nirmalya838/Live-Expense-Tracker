@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const User = require('./models/user');
 const Order = require('./models/order');
 const Expense = require('./models/expense');
+const PasswordRequests = require('./models/password');
 const sequelize = require('./database/db');
 
 const app = express();
@@ -22,7 +23,8 @@ const premiumRoute = require('./routes/premiumRoute');
 const leaderRoute = require('./routes/getLeaderRoute');
 const getLeaderDetailsRoute = require('./routes/getLeaderDetailsRoute');
 const forgotRoute = require('./routes/forgotRoute');
-
+const getResetPasswordRoute = require('./routes/getResetPasswordRoute');
+const postResetPasswordRoute = require('./routes/postResetPasswordRoute');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -43,6 +45,8 @@ app.use(premiumRoute);
 app.use(leaderRoute);
 app.use(getLeaderDetailsRoute);
 app.use(forgotRoute);
+app.use(getResetPasswordRoute);
+app.use(postResetPasswordRoute);
 
 User.hasMany(Expense);
 Expense.belongsTo(User);
@@ -50,11 +54,11 @@ Expense.belongsTo(User);
 User.hasMany(Order);
 Order.belongsTo(User);
 
+User.hasMany(PasswordRequests);
+PasswordRequests.belongsTo(User);
+
 sequelize.sync()
-.then(()=>{
+  .then(() => {
     app.listen(port, () => console.log(`Listening on port ${port}`));
-})
-.catch(err => console.log(err))
-
-
-
+  })
+  .catch(err => console.log(err));

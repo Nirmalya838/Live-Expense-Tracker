@@ -1,0 +1,43 @@
+<!-- resetpassword.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Reset Password</title>
+</head>
+<body>
+  <h1>Reset Password</h1>
+  <form id="resetPasswordForm" method="POST" action="">
+    <label for="password">New Password:</label>
+    <input type="password" id="password" name="password" required>
+    <button type="submit">Reset Password</button>
+  </form>
+
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script>
+    // Get the UUID from the URL
+    const token = window.location.pathname.split('/').pop();
+
+    // Set the form action dynamically
+    const form = document.getElementById('resetPasswordForm');
+    form.action = `/resetpassword/${token}`;
+
+    // Submit the form using Axios
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const password = document.getElementById('password').value;
+      const data = { password };
+
+      try {
+        await axios.post(form.action, data);
+        alert('Password reset successful!');
+        // Redirect to a success page or perform any other action
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Password reset failed. Please try again.');
+      }
+    });
+  </script>
+</body>
+</html>
