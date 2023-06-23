@@ -3,40 +3,40 @@ document.addEventListener('DOMContentLoaded', () => {
   const expenseList = document.getElementById('expense-list');
 
   axios.get('/expense/details')
-    .then(response => {
-      const expenses = response.data;
+  .then(response => {
+    const expenses = response.data;
+    const userId = document.getElementById('userId').value;
 
-      const expenseList = document.getElementById('expense-list');
+    const filteredExpenses = expenses.filter(expense => expense.userId == userId);
 
-      expenseList.innerHTML = '';
+    expenseList.innerHTML = '';
 
-      expenses.forEach(expense => {
+    filteredExpenses.forEach(expense => {
+      const listItem = document.createElement('li');
+      listItem.setAttribute('id', `expense-item-${expense.id}`);
+      const date = new Date(expense.date).toLocaleDateString();
 
-        const listItem = document.createElement('li');
-        listItem.setAttribute('id', `expense-item-${expense.id}`);
-        const date = new Date(expense.date).toLocaleDateString();
-
-        listItem.innerHTML = `
-          <strong>Amount:</strong> Rs. ${expense.amount} |
-          <strong>Type:</strong> ${expense.type} |
-          <strong>Date:</strong> ${date} |
-          <button class="btn btn-delete" data-expense-id="${expense.id}">Delete</button>
-        `;
-        expenseList.appendChild(listItem);
-      });
-
-      const deleteButtons = document.querySelectorAll('.btn-delete');
-      deleteButtons.forEach(button => {
-        button.addEventListener('click', () => {
-          const expenseId = button.dataset.expenseId;
-          deleteExpense(expenseId);
-        });
-      });
-    })
-    .catch(error => {
-      console.error('Error fetching expenses:', error);
+      listItem.innerHTML = `
+        <strong>Amount:</strong> Rs. ${expense.amount} |
+        <strong>Type:</strong> ${expense.type} |
+        <strong>Date:</strong> ${date} |
+        <button class="btn btn-delete" data-expense-id="${expense.id}">Delete</button>
+      `;
+      expenseList.appendChild(listItem);
     });
 
+    const deleteButtons = document.querySelectorAll('.btn-delete');
+    deleteButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const expenseId = button.dataset.expenseId;
+        deleteExpense(expenseId);
+      });
+    });
+  })
+  .catch(error => {
+    console.error('Error fetching expenses:', error);
+  });
+  
   function deleteExpense(expenseId) {
     const userId = new URLSearchParams(window.location.search).get('userId');
     axios.delete(`/expense/delete/${expenseId}?userId=${userId}`)
@@ -74,6 +74,13 @@ document.addEventListener('DOMContentLoaded', () => {
           else {
             ldbButton.style.display = 'none';
           }
+          const rptButton = document.getElementById('rpt');
+      if (isPremium) {
+        rptButton.style.display = 'inline-block';
+          }
+          else {
+            rptButton.style.display = 'none';
+          }
     })
     .catch(error => {
       console.error('Error fetching user premium status:', error);
@@ -92,7 +99,7 @@ rzpButton.addEventListener('click', function() {
       const orderId = response.data.orderId;
 
       const options = {
-        key: 'rzp_test_Gm7xr3DBOIyVKR', 
+        key: 'rzp_test_jLjGvCX8jtCIOe', 
         amount: amount * 100,
         currency: 'INR',
         name: 'Premium Subscription',

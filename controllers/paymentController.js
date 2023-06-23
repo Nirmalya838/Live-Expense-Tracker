@@ -5,8 +5,8 @@ const Order  = require('../models/order');
 const User = require('../models/user');
 
 const razorpay = new Razorpay({
-  key_id: 'rzp_test_Gm7xr3DBOIyVKR',
-  key_secret: '6G8vRhwvRPeEh1gcnPRoB6XL',
+  key_id: 'rzp_test_jLjGvCX8jtCIOe',
+  key_secret: 'bbf7raFVDQKBPsU7WRpQS9s0',
 });
 
 exports.createOrder = async (req, res) => {
@@ -32,7 +32,7 @@ exports.verifyPayment = async (req, res) => {
   const { orderId, paymentId, signature, userId } = req.body;
 
   try {
-    const secretKey = '6G8vRhwvRPeEh1gcnPRoB6XL'; 
+    const secretKey = 'bbf7raFVDQKBPsU7WRpQS9s0'; 
 
     const text = orderId + '|' + paymentId;
 

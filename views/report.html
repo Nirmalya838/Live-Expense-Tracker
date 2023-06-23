@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Expense Report</title>
+  <style>
+    body {
+    margin: 40px;
+    background-color: #eb8f8f;
+    }
+    h1,h2,td, th {
+    text-align: center;
+    }
+    .table-container {
+      display: block;
+      width: 100%;
+      overflow-x: auto;
+    }
+  
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+  
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+  
+    th {
+      background-color: #f2f2f2;
+      color: #555;
+    }
+  
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+  
+    tr:hover {
+      background-color: #f5f5f5;
+    }
+  </style>
+  
+</head>
+<body>
+  <h1>Expense Report</h1>
+  <a href="#" id="back-link">Go Back</a>
+  <h2>Daily Expense Report</h2>
+  <div class="table-container">
+  <table id="dailyReportTable">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Expense Type</th>
+        <th>Amount</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
+
+  <h2>Monthly Expense Report</h2>
+  <table id="monthlyReportTable">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>-</th>
+        <th>Amount</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <h2>Yearly Expense Report</h2>
+  <table id="yearlyReportTable">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>-</th>
+        <th>Amount</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script src="report.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const backLink = document.getElementById('back-link');
+        backLink.href = document.referrer;
+    });
+</script>
+</body>
+</html>

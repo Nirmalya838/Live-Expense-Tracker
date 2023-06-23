@@ -28,6 +28,7 @@
     </form>
     <button id="rzp">Buy Premium</button>
     <button id="ldb">LeaderBoard</button>
+    <button id="rpt">Report</button>
     <div>
       <h2>Expense List</h2>
       <ul id="expense-list"></ul>
@@ -43,11 +44,15 @@
     const userIdInput = document.getElementById('userId');
     userIdInput.value = userId;
     form.action = `/expense/add-expense?userId=${userId}`;
-    var leaderboardButton = document.getElementById('ldb');
+      var leaderboardButton = document.getElementById('ldb');
       leaderboardButton.addEventListener('click', function() {
         window.location.href = '/leaderboard';
       });
-      var logOutButton = document.getElementById('log');
+      var reportButton = document.getElementById('rpt');
+      reportButton.addEventListener('click', function() {
+        window.location.href = `/report?userId=${userId}`;
+      });
+      var logOutButton = document.getElementById('log');  
       logOutButton.addEventListener('click', function() {
         window.location.href = '/login';
       });

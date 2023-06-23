@@ -25,6 +25,7 @@ const getLeaderDetailsRoute = require('./routes/getLeaderDetailsRoute');
 const forgotRoute = require('./routes/forgotRoute');
 const getResetPasswordRoute = require('./routes/getResetPasswordRoute');
 const postResetPasswordRoute = require('./routes/postResetPasswordRoute');
+const getReportPageRoute = require('./routes/getReportPageRoute');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -47,6 +48,7 @@ app.use(getLeaderDetailsRoute);
 app.use(forgotRoute);
 app.use(getResetPasswordRoute);
 app.use(postResetPasswordRoute);
+app.use(getReportPageRoute);
 
 User.hasMany(Expense);
 Expense.belongsTo(User);
